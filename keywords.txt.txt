@@ -1,0 +1,11 @@
+# Syntax highlighting for ESP_NOW_HR library
+
+KEYWORD1 ESP_NOW_HR
+
+KEYWORD2 OnDataSent
+KEYWORD2 OnDataRecv
+KEYWORD2 Set_Data_parameters
+KEYWORD2 getMACtoSTRING
+
+KEYWORD3 DATA
+KEYWORD3 getLatestMsg
