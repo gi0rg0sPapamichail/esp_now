@@ -171,7 +171,7 @@ void ESP_NOW_HR::SendInt(int int_msg) {
 
     int_msg = (int)int_msg;
 
-    Set_Data_parameters(&msg,'I', NULL int_msg, NULL, NULL);
+    Set_Data_parameters(&msg,'I', NULL, int_msg, NULL, NULL);
 
     bool result = esp_now_send(broadcastAddress, (uint8_t *) &msg, sizeof(msg));
     result == ESP_OK ? Serial.println("Successfully sent msg") : Serial.println("Failed to send msg");
