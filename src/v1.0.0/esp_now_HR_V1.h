@@ -1,5 +1,5 @@
-#ifndef esp_now_HR_h
-#define esp_now_HR_h
+#ifndef esp_now_HR_V1_h
+#define esp_now_HR_V1_h
 
 #include <WiFi.h>
 #include <esp_wifi.h>

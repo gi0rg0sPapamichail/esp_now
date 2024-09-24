@@ -1,5 +1,5 @@
-#include "esp_now_HR.h"
-#include "esp_now_HR_enums.h"
+#include "esp_now_HR_V1.h"
+#include "esp_now_HR_enums_V1.h"
 
 
 DATA recv_msg;
