@@ -1,4 +1,4 @@
-# ESP_NOW Library
+# ESP_NOW_HR Library
 
 ## Overview
 
@@ -15,23 +15,23 @@ This library helps initialize the ESP-NOW protocol, utilizing all its important 
 
 ## Installation
 
-To install the ESP_NOW library, follow these steps:
+To install the ESP_NOW_HR library, follow these steps:
 
-1. Download the latest release from the [releases page](https://github.com/gi0rg0sPapamichail/esp_now).
+1. Download the latest release from the [releases page](https://github.com/gi0rg0sPapamichail/esp_now_HR_H).
 2. Open the Arduino IDE.
 3. Go to **Sketch** > **Include Library** > **Add .Zip library...**
-4. Search for "ESP_NOW-main" and click **Open**.
+4. Search for "esp_now_HR_H-main" and click **Open**.
 
 ## Usage
 
-1. Include the library in your sketch: `#include <ESP_NOW.h>`
-2. Initialize an `ESP_NOW` object with desired communication parameters.
+1. Include the library in your sketch: `#include <esp_now_HR.h>`
+2. Initialize an `ESP_NOW_HR` object with desired communication parameters.
 3. Note that the Serial.begin() must always be called for the library to work before the object initialization.
 4. Call  the `begin()` method to start the protocol.
 5. Call the apropriate `addPeer()` method to give the information of the peer.
 
 ```cpp
-#include <ESP_NOW.h>
+#include <esp_now_HR.h>
 
 #define PEERS 3
 
@@ -42,8 +42,8 @@ uint8_t PEERS_MAC[PEERS][MAC_LENGTH] = {
     {/*Your peers MAC adress*/}
     };
 
-// Initialize ESP_NOW object
-ESP_NOW myesp(SENDER, PEERS, MAC);
+// Initialize ESP_NOW_HR object
+ESP_NOW_HR myesp(SENDER, PEERS, MAC);
 
 void setup() {
     Serial.begin(115200);
@@ -68,7 +68,7 @@ void loop() {
 
 ### SENDER EXAMPLE
 ```cpp
-#include "ESP_NOW.h"
+#include "esp_now_HR.h"
 
 
 uint8_t MACS[4][MAC_LENGTH] = {
@@ -80,7 +80,7 @@ uint8_t MACS[4][MAC_LENGTH] = {
 
 uint8_t Senders_MAC[MAC_LENGTH] = {0xCA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA};
 
-ESP_NOW my_esp(SENDER, 4, Senders_MAC);
+ESP_NOW_HR my_esp(SENDER, 4, Senders_MAC);
 
 void setup() {
   Serial.begin(115200);
@@ -117,7 +117,7 @@ void loop() {
 
 ### RECIEVER CODE
 ```cpp
-#include "ESP_NOW.h"
+#include "esp_now_HR.h"
 
 #define ID 3
 
@@ -133,7 +133,7 @@ uint8_t MACS[4][MAC_LENGTH] = {
 
 uint8_t senders_MAC[MAC_LENGTH] = {0xFF, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA};
 
-ESP_NOW my_esp(RECEIVER, 1, MACS[ID]);
+ESP_NOW_HR my_esp(RECEIVER, 1, MACS[ID]);
 
 void setup() {
   Serial.begin(115200);
@@ -161,19 +161,19 @@ void loop() {
 ```
 
 ## API Reference
-### Class: `ESP_NOW`
+### Class: `ESP_NOW_HR`
 A class to manage ESP-NOW communication, providing functionalities for sending and receiving messages, managing peers, and handling encryption.
 
 
 ### **Constructor**
-- **`ESP_NOW(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC)`**
+- **`ESP_NOW_HR(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC)`**
     - **Parameters**:
         - `communication`: Mode of communication (SENDER, RECEIVER, or TWO_WAY_COMMUNICATION).
         - `peers_crowd`: Number of peers to manage.
         - `new_local_MAC`: Pointer to the new local MAC address.
-    - **Description**: Initializes the ESP_NOW instance with specified communication mode and peer configuration.
+    - **Description**: Initializes the ESP_NOW_HR instance with specified communication mode and peer configuration.
 
-- **`ESP_NOW(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC, const char* new_PMK_key)`**
+- **`ESP_NOW_HR(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC, const char* new_PMK_key)`**
     - **Parameters**:
         - `communication`: Mode of communication.
         - `peers_crowd`: Number of peers.
@@ -251,7 +251,7 @@ A class to manage ESP-NOW communication, providing functionalities for sending a
 ---
 
 ### **Destructor**
-- **`~ESP_NOW()`**
+- **`~ESP_NOW_HR()`**
     - **Description**: Cleans up resources and deinitializes ESP-NOW.
 
 ---

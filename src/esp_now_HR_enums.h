@@ -1,8 +1,8 @@
 /**
  * @author George Papamichail
  */
-#ifndef ESP_NOW_enums_h 
-#define ESP_NOW_enums_h
+#ifndef esp_now_HR_enums_h 
+#define esp_now_HR_enums_h
 
 ///< Define constants
 #define MAC_LENGTH 6         ///< Length of MAC address

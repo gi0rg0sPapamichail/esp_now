@@ -1,4 +1,4 @@
-#include "ESP_NOW.h"
+#include "esp_now_HR.h"
 
 
 uint8_t MACS[4][MAC_LENGTH] = {
@@ -10,7 +10,7 @@ uint8_t MACS[4][MAC_LENGTH] = {
 
 uint8_t Senders_MAC[MAC_LENGTH] = {0xCA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA};
 
-ESP_NOW my_esp(SENDER, 4, Senders_MAC);
+ESP_NOW_HR my_esp(SENDER, 4, Senders_MAC);
 
 void setup() {
   Serial.begin(115200);

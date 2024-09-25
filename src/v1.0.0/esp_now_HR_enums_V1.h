@@ -1,5 +1,5 @@
-#ifndef ESP_NOW_enums_V1_h
-#define ESP_NOW_enums_V1_h
+#ifndef esp_now_HR_enums_V1_h
+#define esp_now_HR_enums_V1_h
 
 // Enum for communication modes
 enum COMMUNICATION {

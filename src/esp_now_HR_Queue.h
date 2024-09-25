@@ -1,14 +1,14 @@
 /**
  * @author George Papamichail
  */
-#ifndef ESP_NOW_Queue_h
-#define ESP_NOW_Queue_h
+#ifndef esp_now_HR_Queue_h
+#define esp_now_HR_Queue_h
 
 #include <cstddef>
 #include <type_traits>
 #include <Arduino.h>
 
-#include "ESP_NOW_utils.h"
+#include "esp_now_HR_utils.h"
 
 /**
  * @class   Msg_Queue
