@@ -1,25 +1,25 @@
 /**
  * @author George Papamichail
  */
-#ifndef Esp_Now_h
-#define Esp_Now_h
+#ifndef ESP_NOW_g_h
+#define ESP_NOW_g_h
 
 
 #include <WiFi.h>
 #include <esp_wifi.h>
-#include <Esp_Now.h>
+#include <ESP_NOW_g.h>
 
-#include "Esp_Now_enums.h"
-#include "Esp_Now_utils.h"
-#include "Esp_Now_Queue.h"
+#include "ESP_NOW_g_enums.h"
+#include "ESP_NOW_g_utils.h"
+#include "ESP_NOW_g_Queue.h"
 
 
 
 /**
- * @class   Esp_Now
+ * @class   ESP_NOW_g
  * @brief   This class implements the ESP-NOW communication protocol with support for encryption, peer management, and message queuing.
  */
-class Esp_Now {
+class ESP_NOW_g {
   private:
     static Msg_Queue recieved_msgs; 
     /********The callback_fuctions for sending and reiciving messages********/
@@ -35,7 +35,7 @@ class Esp_Now {
      * @param   mac_addr MAC address of the peer to which the message was sent.
      * @param   status Status of the sent message (e.g., success or failure).
      */
-    static void OnDataSent(const uint8_t *mac_addr, Esp_Now_send_status_t status);
+    static void OnDataSent(const uint8_t *mac_addr, ESP_NOW_g_send_status_t status);
 
     /**
      * @brief   Callback function for handling received messages.
@@ -43,7 +43,7 @@ class Esp_Now {
      * @param   incomingData The raw data received.
      * @param   len The length of the received data.
      */
-    static void OnDataRecv(const Esp_Now_recv_info_t *info, const uint8_t *incomingData, int len);
+    static void OnDataRecv(const ESP_NOW_g_recv_info_t *info, const uint8_t *incomingData, int len);
     /************************************************************************/
 
     int error_counter = 0;                              ///< Counter to track the number of errors during initialization.
@@ -69,7 +69,7 @@ class Esp_Now {
      * @param   peers_crowd This indicates how many ESPs are communicating with this ESP
      * @param   new_local_MAC The MAC address that is going to be assigned to this ESP
      */
-    Esp_Now(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC);  
+    ESP_NOW_g(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC);  
     
     /**
      * @brief   Constructor for initializing espnow protocol
@@ -78,7 +78,7 @@ class Esp_Now {
      * @param   new_local_MAC The MAC address that is going to be assigned to this ESP
      * @param   new_PMK_key The PMK encryption key used in the ESPs network
      */
-    Esp_Now(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC, const char* new_PMK_key);  
+    ESP_NOW_g(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC, const char* new_PMK_key);  
     /********Constructors********/
 
     /********Setting up the esps network********/
@@ -119,19 +119,19 @@ class Esp_Now {
      * @param   Peer The peer's information struct
      * @note    It is recommended to use this method only if you want to add private information for the peer
      */
-    void addPeer(int id, Esp_Now_peer_info_t* Peer);
+    void addPeer(int id, ESP_NOW_g_peer_info_t* Peer);
 
     /**
      * @brief   Set custom send callback function
      * @param   custom The function to be called when a message is sent
      */
-    void setCustomSendCallback(Esp_Now_send_cb_t custom);
+    void setCustomSendCallback(ESP_NOW_g_send_cb_t custom);
 
     /**
      * @brief   Set custom reicieve callback function
      * @param   custom The function to be called when a message is received
      */
-    void setCustomRecvCallback(Esp_Now_recv_cb_t custom);
+    void setCustomRecvCallback(ESP_NOW_g_recv_cb_t custom);
 
     /**
      * @brief   Prints all the possible initialization errors
@@ -253,11 +253,11 @@ class Esp_Now {
     /**
      * @brief   Destructor
      */
-    ~Esp_Now();
+    ~ESP_NOW_g();
 };
 
 template<typename T> 
-void Esp_Now::Send(const int id, const T msg) {
+void ESP_NOW_g::Send(const int id, const T msg) {
     bool id_exists = false;
     int key;
     for(int i = 0; i<this->id_counter; i++){
@@ -268,8 +268,8 @@ void Esp_Now::Send(const int id, const T msg) {
         }
     }
     
-    Esp_Now_peer_info_t* temp_peer;
-    Esp_Now_get_peer(this->Peers_MAC[key], temp_peer);
+    ESP_NOW_g_peer_info_t* temp_peer;
+    ESP_NOW_g_get_peer(this->Peers_MAC[key], temp_peer);
 
 
     if(!id_exists){
@@ -312,12 +312,12 @@ void Esp_Now::Send(const int id, const T msg) {
     }
 
 
-    bool result = Esp_Now_send(this->Peers_MAC[key], (uint8_t*) &msg_to_sent, sizeof(msg_to_sent));
+    bool result = ESP_NOW_g_send(this->Peers_MAC[key], (uint8_t*) &msg_to_sent, sizeof(msg_to_sent));
     result == ESP_OK ? Serial.println("Successfully sent msg") : Serial.println("Failed to send msg");
 }
 
 template<typename T> 
-void Esp_Now::Send(const int id, const T* msg, int size) {
+void ESP_NOW_g::Send(const int id, const T* msg, int size) {
     bool id_exists = false;
     int key;
     for(int i = 0; i<this->id_counter; i++){
@@ -333,8 +333,8 @@ void Esp_Now::Send(const int id, const T* msg, int size) {
         return;
     }
 
-    Esp_Now_peer_info_t* temp_peer;
-    Esp_Now_get_peer(this->Peers_MAC[key], temp_peer);
+    ESP_NOW_g_peer_info_t* temp_peer;
+    ESP_NOW_g_get_peer(this->Peers_MAC[key], temp_peer);
 
     if(WiFi.channel() == temp_peer->channel){
         WiFi.setChannel(temp_peer->channel);
@@ -397,7 +397,7 @@ void Esp_Now::Send(const int id, const T* msg, int size) {
 
     
 
-    bool result = Esp_Now_send(this->Peers_MAC[key], (uint8_t*) &msg_to_sent, sizeof(msg_to_sent));
+    bool result = ESP_NOW_g_send(this->Peers_MAC[key], (uint8_t*) &msg_to_sent, sizeof(msg_to_sent));
     result == ESP_OK ? Serial.println("Successfully sent msg") : Serial.println("Failed to send msg");
 
     if(msg_to_sent.type == INT) free(msg_to_sent.msg.i_ptr);
@@ -411,14 +411,14 @@ void Esp_Now::Send(const int id, const T* msg, int size) {
 }
 
 template<typename T>
-T Esp_Now::read(){
-    return Esp_Now::recieved_msgs.pop<T>();
+T ESP_NOW_g::read(){
+    return ESP_NOW_g::recieved_msgs.pop<T>();
 }
 
 
 template<typename T>
-void Esp_Now::read_array(T* output){
-    Esp_Now::recieved_msgs.popArray(output);
+void ESP_NOW_g::read_array(T* output){
+    ESP_NOW_g::recieved_msgs.popArray(output);
 }
 
 #endif
