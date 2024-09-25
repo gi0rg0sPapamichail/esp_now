@@ -17,7 +17,7 @@ This library helps initialize the ESP-NOW protocol, utilizing all its important 
 
 To install the ESP_NOW library, follow these steps:
 
-1. Download the latest release from the [releases page]([https://github.com/gi0rg0sPapamichail/ESP_NOW_H](https://github.com/gi0rg0sPapamichail/esp_now)).
+1. Download the latest release from the [releases page]((https://github.com/gi0rg0sPapamichail/esp_now)).
 2. Open the Arduino IDE.
 3. Go to **Sketch** > **Include Library** > **Add .Zip library...**
 4. Search for "ESP_NOW-main" and click **Open**.
