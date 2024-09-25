@@ -1,13 +1,13 @@
 /**
  * @author George Papamichail
  */
-#ifndef esp_now_HR_utils_h
-#define esp_now_HR_utils_h
+#ifndef ESP_NOW_utils_h
+#define ESP_NOW_utils_h
 
 #include <cstddef>
 #include <Arduino.h>
 
-#include "esp_now_HR_enums.h"
+#include "ESP_NOW_enums.h"
 
 /**
  * @brief   Create a struct that contains the data of the message

@@ -1,11 +1,11 @@
-// #include "esp_now_HR_V1.h"
-// #include "esp_now_HR_enums_V1.h"
+// #include "ESP_NOW_V1.h"
+// #include "ESP_NOW_enums_V1.h"
 
 
 // DATA recv_msg;
 
-// // Constructor for ESP_NOW_HR class
-// ESP_NOW_HR::ESP_NOW_HR(int communication, int channel, uint8_t *MAC, bool encryption) {
+// // Constructor for ESP_NOW class
+// ESP_NOW::ESP_NOW(int communication, int channel, uint8_t *MAC, bool encryption) {
 //     this->ESP_CHANNEL = channel;
 //     this->ESP_COM = communication;
 //     for(int i=0; i<MAC_LENGTH;i++){
@@ -16,13 +16,13 @@
 //     this->encrypt = encryption;
 // }
 
-// ESP_NOW_HR::~ESP_NOW_HR(){
+// ESP_NOW::~ESP_NOW(){
 //     free(this->setup_errors);
 //     free(this->broadcastAddress);
 // }
 
 // // Initialization method
-// void ESP_NOW_HR::begin() {
+// void ESP_NOW::begin() {
 //     // Set the WiFi module to station mode
 //     WiFi.mode(WIFI_STA);
 
@@ -77,12 +77,12 @@
 //     }
 // }
 
-// bool ESP_NOW_HR::available(){
+// bool ESP_NOW::available(){
 //     return RECIEVED_MSG;
 // }
 
 // // Method to check for initialization failures
-// bool ESP_NOW_HR::FAIL_CHECK() {
+// bool ESP_NOW::FAIL_CHECK() {
 //     if(this->errors == 0) {
 //         Serial.println("\rTHERE WERE NO INITIALIZATION ERROR");
 //         return false;
@@ -97,12 +97,12 @@
 // }
 
 // // Getter for MAC address
-// uint8_t* ESP_NOW_HR::getMAC() {
+// uint8_t* ESP_NOW::getMAC() {
 //     return this->MAC;
 // }
 
 // // Setter for MAC address
-// void ESP_NOW_HR::setMAC(uint8_t *MAC) {
+// void ESP_NOW::setMAC(uint8_t *MAC) {
 //   memcpy(this->MAC, MAC, MAC_LENGTH);
 //   memcpy(this->broadcastAddress, MAC, MAC_LENGTH);
 //   memcpy(peerInfo.peer_addr, broadcastAddress, MAC_LENGTH);
@@ -116,34 +116,34 @@
 // }
 
 // // Setter for channel
-// void ESP_NOW_HR::setChannel(int channel) {
+// void ESP_NOW::setChannel(int channel) {
 //   this->ESP_CHANNEL = channel;
 //   this->peerInfo.channel = channel;
 // }
 
-// void ESP_NOW_HR::setRecvMsg(DATA msg) {
+// void ESP_NOW::setRecvMsg(DATA msg) {
 //     // Copy the received message data to the static variable
 //     reicived_msg = msg;
 // }
 
 // // Set WiFi to AP mode
-// void ESP_NOW_HR::setWiFi_to_AP() {
+// void ESP_NOW::setWiFi_to_AP() {
 //   WiFi.mode(WIFI_MODE_AP);
 // }
 
 // // Set WiFi to AP+STA mode
-// void ESP_NOW_HR::setWiFi_to_APSTA() {
+// void ESP_NOW::setWiFi_to_APSTA() {
 //   WiFi.mode(WIFI_MODE_APSTA);
 // }
 
 // // Setter for encryption
-// void ESP_NOW_HR::Encryption(bool encryption) {
+// void ESP_NOW::Encryption(bool encryption) {
 //   this->encrypt = encryption;
 //   this->peerInfo.encrypt = encrypt;
 // }
 
 // // Send a string message using ESP-NOW
-// void ESP_NOW_HR::SendString(char char_msg[STRING_LENGTH]) {
+// void ESP_NOW::SendString(char char_msg[STRING_LENGTH]) {
 //     DATA msg;
 
 //     Set_Data_parameters(&msg,'C', char_msg, NULL, NULL, NULL);
@@ -153,7 +153,7 @@
 // }
 
 // // Send a string message on a specific channel using ESP-NOW
-// void ESP_NOW_HR::SendString(char *char_msg, int channel) {
+// void ESP_NOW::SendString(char *char_msg, int channel) {
 //     int prevChannel = this->peerInfo.channel; // Store the current channel
 //     this->peerInfo.channel = channel; // Set the new channel
 //     DATA msg;
@@ -166,7 +166,7 @@
 // }
 
 // // Send an integer message using ESP-NOW
-// void ESP_NOW_HR::SendInt(int int_msg) {
+// void ESP_NOW::SendInt(int int_msg) {
 //     DATA msg;
 
 //     int_msg = (int)int_msg;
@@ -178,7 +178,7 @@
 // }
 
 // // Send an integer message on a specific channel using ESP-NOW
-// void ESP_NOW_HR::SendInt(int int_msg, int channel) {
+// void ESP_NOW::SendInt(int int_msg, int channel) {
 //     int prevChannel = this->peerInfo.channel; // Store the current channel
 //     this->peerInfo.channel = channel; // Set the new channel
 //     DATA msg;
@@ -190,7 +190,7 @@
 // }
 
 // // Send a float message using ESP-NOW
-// void ESP_NOW_HR::SendFloat(float float_msg) {
+// void ESP_NOW::SendFloat(float float_msg) {
 //     DATA msg;
 
 //     float_msg = (float)float_msg;
@@ -201,7 +201,7 @@
 // }
 
 // // Send a float message on a specific channel using ESP-NOW
-// void ESP_NOW_HR::SendFloat(float float_msg, int channel) {
+// void ESP_NOW::SendFloat(float float_msg, int channel) {
 //     int prevChannel = this->peerInfo.channel; // Store the current channel
 //     this->peerInfo.channel = channel; // Set the new channel
 //     DATA msg;
@@ -215,7 +215,7 @@
 // }
 
 // // Send a boolean message using ESP-NOW
-// void ESP_NOW_HR::sendBool(bool bool_msg) {
+// void ESP_NOW::sendBool(bool bool_msg) {
 //     DATA msg;
 
 //     bool_msg = (bool)bool_msg;
@@ -226,7 +226,7 @@
 // }
 
 // // Send a boolean message on a specific channel using ESP-NOW
-// void ESP_NOW_HR::sendBool(bool bool_msg, int channel) {
+// void ESP_NOW::sendBool(bool bool_msg, int channel) {
 //     int prevChannel = this->peerInfo.channel; // Store the current channel
 //     this->peerInfo.channel = channel; // Set the new channel
 //     DATA msg;
@@ -240,7 +240,7 @@
 // }
 
 // // Send a full struct message using ESP-NOW
-// void ESP_NOW_HR::SendFullStruct(char msg_String[], int msg_int, float msg_float, bool msg_bool) {
+// void ESP_NOW::SendFullStruct(char msg_String[], int msg_int, float msg_float, bool msg_bool) {
 //     DATA msg;
 //     Set_Data_parameters(&msg, 'S', msg_String, msg_int, msg_float, msg_bool);
 //     bool result = esp_now_send(broadcastAddress, (uint8_t *) &msg, sizeof(msg));
@@ -248,7 +248,7 @@
 // }
 
 // // Send a full struct message on a specific channel using ESP-NOW
-// void ESP_NOW_HR::SendFullStruct(char *msg_String, int msg_int, float msg_float, bool msg_bool, int channel){
+// void ESP_NOW::SendFullStruct(char *msg_String, int msg_int, float msg_float, bool msg_bool, int channel){
 //   DATA msg;
 //   Set_Data_parameters(&msg, 'S', msg_String, msg_int, msg_float, msg_bool);
 //   // Store the current channel
@@ -264,19 +264,19 @@
 
 
 // // Get the latest message that was sent
-// DATA ESP_NOW_HR::getLatestMsg() {
+// DATA ESP_NOW::getLatestMsg() {
 //     this->RECIEVED_MSG = false;
 //     return reicived_msg; // Retrieve the last received message
 // }
 
-// DATA ESP_NOW_HR::getMSG(int index){
+// DATA ESP_NOW::getMSG(int index){
 //     return Vector_msg[index];
 // }
 
-// std::vector<DATA> ESP_NOW_HR::Vector_msg;
-// int ESP_NOW_HR::recieved_msgs_counter = 0;  // Number of received messages
-// bool ESP_NOW_HR::RECIEVED_MSG = false; // Variable that indicates if the esp received a msg
-// DATA ESP_NOW_HR::reicived_msg;
+// std::vector<DATA> ESP_NOW::Vector_msg;
+// int ESP_NOW::recieved_msgs_counter = 0;  // Number of received messages
+// bool ESP_NOW::RECIEVED_MSG = false; // Variable that indicates if the esp received a msg
+// DATA ESP_NOW::reicived_msg;
 
 // // Callback function for data sent
 // void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status) {
@@ -294,14 +294,14 @@
 //     memcpy(&receivedData, incomingData, sizeof(DATA));
 
 //     // Add the received data to the vector
-//     ESP_NOW_HR::Vector_msg.push_back(receivedData);
+//     ESP_NOW::Vector_msg.push_back(receivedData);
 
 //     // Update the static variable to store the latest received message data
-//     ESP_NOW_HR::setRecvMsg(receivedData);
+//     ESP_NOW::setRecvMsg(receivedData);
 
 //     // Optionally, you can increment a counter or perform other actions here
-//     ESP_NOW_HR::recieved_msgs_counter++;
-//     ESP_NOW_HR::RECIEVED_MSG = true;
+//     ESP_NOW::recieved_msgs_counter++;
+//     ESP_NOW::RECIEVED_MSG = true;
 
 // }
 

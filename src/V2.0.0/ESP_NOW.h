@@ -1,25 +1,25 @@
 /**
  * @author George Papamichail
  */
-#ifndef esp_now_HR_h
-#define esp_now_HR_h
+#ifndef ESP_NOW_h
+#define ESP_NOW_h
 
 
 #include <WiFi.h>
 #include <esp_wifi.h>
 #include <esp_now.h>
 
-#include "esp_now_HR_enums.h"
-#include "esp_now_HR_utils.h"
-#include "esp_now_HR_Queue.h"
+#include "ESP_NOW_enums.h"
+#include "ESP_NOW_utils.h"
+#include "ESP_NOW_Queue.h"
 
 
 
 /**
- * @class   ESP_NOW_HR
+ * @class   ESP_NOW
  * @brief   This class implements the ESP-NOW communication protocol with support for encryption, peer management, and message queuing.
  */
-class ESP_NOW_HR {
+class ESP_NOW {
   private:
     static Msg_Queue recieved_msgs; 
     /********The callback_fuctions for sending and reiciving messages********/
@@ -69,7 +69,7 @@ class ESP_NOW_HR {
      * @param   peers_crowd This indicates how many ESPs are communicating with this ESP
      * @param   new_local_MAC The MAC address that is going to be assigned to this ESP
      */
-    ESP_NOW_HR(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC);  
+    ESP_NOW(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC);  
     
     /**
      * @brief   Constructor for initializing espnow protocol
@@ -78,7 +78,7 @@ class ESP_NOW_HR {
      * @param   new_local_MAC The MAC address that is going to be assigned to this ESP
      * @param   new_PMK_key The PMK encryption key used in the ESPs network
      */
-    ESP_NOW_HR(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC, const char* new_PMK_key);  
+    ESP_NOW(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC, const char* new_PMK_key);  
     /********Constructors********/
 
     /********Setting up the esps network********/
@@ -253,11 +253,11 @@ class ESP_NOW_HR {
     /**
      * @brief   Destructor
      */
-    ~ESP_NOW_HR();
+    ~ESP_NOW();
 };
 
 template<typename T> 
-void ESP_NOW_HR::Send(const int id, const T msg) {
+void ESP_NOW::Send(const int id, const T msg) {
     bool id_exists = false;
     int key;
     for(int i = 0; i<this->id_counter; i++){
@@ -317,7 +317,7 @@ void ESP_NOW_HR::Send(const int id, const T msg) {
 }
 
 template<typename T> 
-void ESP_NOW_HR::Send(const int id, const T* msg, int size) {
+void ESP_NOW::Send(const int id, const T* msg, int size) {
     bool id_exists = false;
     int key;
     for(int i = 0; i<this->id_counter; i++){
@@ -411,14 +411,14 @@ void ESP_NOW_HR::Send(const int id, const T* msg, int size) {
 }
 
 template<typename T>
-T ESP_NOW_HR::read(){
-    return ESP_NOW_HR::recieved_msgs.pop<T>();
+T ESP_NOW::read(){
+    return ESP_NOW::recieved_msgs.pop<T>();
 }
 
 
 template<typename T>
-void ESP_NOW_HR::read_array(T* output){
-    ESP_NOW_HR::recieved_msgs.popArray(output);
+void ESP_NOW::read_array(T* output){
+    ESP_NOW::recieved_msgs.popArray(output);
 }
 
 #endif

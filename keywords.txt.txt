@@ -1,7 +1,7 @@
 # Syntax highlighting for ESP_NOW_HR library
 
 # Class and Methods
-ESP_NOW_HR                 KEYWORD1
+ESP_NOW                    KEYWORD1
 begin                      KEYWORD1
 setChannel                 KEYWORD1
 addPeer                    KEYWORD1
