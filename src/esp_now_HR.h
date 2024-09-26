@@ -268,17 +268,25 @@ void ESP_NOW_HR::Send(const int id, const T msg) {
         }
     }
     
-    esp_now_peer_info_t* temp_peer;
-    esp_now_get_peer(this->Peers_MAC[key], temp_peer);
-
-
     if(!id_exists){
         Serial.println("[Fail] Unknown esp id");
         return;
     }
 
-    if(WiFi.channel() == temp_peer->channel){
-        WiFi.setChannel(temp_peer->channel);
+    // Check if the peer exists
+    if (!esp_now_is_peer_exist(this->Peers_MAC[key])) {
+        Serial.println("[Error] Peer does not exist");
+        return;
+    }
+
+    esp_now_peer_info_t temp_peer;
+    if (esp_now_get_peer(this->Peers_MAC[key], &temp_peer) != ESP_OK) {
+        Serial.println("[Error] Failed to get peer info");
+        return;
+    }
+
+    if(WiFi.channel() != temp_peer.channel){
+        WiFi.setChannel(temp_peer.channel);
         delay(100);
     }
 
@@ -327,20 +335,28 @@ void ESP_NOW_HR::Send(const int id, const T* msg, int size) {
             break;
         }
     }
-
+    
     if(!id_exists){
-        Serial.println("Unknown esp id");
+        Serial.println("[Fail] Unknown esp id");
         return;
     }
 
-    esp_now_peer_info_t* temp_peer;
-    esp_now_get_peer(this->Peers_MAC[key], temp_peer);
-
-    if(WiFi.channel() == temp_peer->channel){
-        WiFi.setChannel(temp_peer->channel);
-        delay(100);
+    // Check if the peer exists
+    if (!esp_now_is_peer_exist(this->Peers_MAC[key])) {
+        Serial.println("[Error] Peer does not exist");
+        return;
     }
 
+    esp_now_peer_info_t temp_peer;
+    if (esp_now_get_peer(this->Peers_MAC[key], &temp_peer) != ESP_OK) {
+        Serial.println("[Error] Failed to get peer info");
+        return;
+    }
+
+    if(WiFi.channel() != temp_peer.channel){
+        WiFi.setChannel(temp_peer.channel);
+        delay(100);
+    }
 
     msg_struct msg_to_sent;
     msg_to_sent.array = true;
