@@ -1,0 +1,39 @@
+# Syntax highlighting for QuickESPNow library
+
+# Class and Methods
+QuickESPNow                 KEYWORD1
+begin                      KEYWORD1
+setChannel                 KEYWORD1
+addPeer                    KEYWORD1
+FAIL_CHECK                 KEYWORD1
+available                  KEYWORD1
+Send                       KEYWORD1
+read                       KEYWORD1
+read_array                 KEYWORD1
+isArray                    KEYWORD1
+data_type                  KEYWORD1
+setWiFi_to_STA             KEYWORD1
+setWiFi_to_AP              KEYWORD1
+setWiFi_to_APSTA           KEYWORD1
+
+# Constants and Data Types
+MAC_LENGTH                 KEYWORD2
+TWO_WAY_COMMUNICATION      KEYWORD2
+SENDER                     KEYWORD2
+RECEIVER                   KEYWORD2
+data                       KEYWORD2
+INT                        KEYWORD2
+SHORT                      KEYWORD2
+LONG                       KEYWORD2
+FLOAT                      KEYWORD2
+DOUBLE                     KEYWORD2
+CHAR                       KEYWORD2
+STRING                     KEYWORD2
+BOOL                       KEYWORD2
+DATA                       KEYWORD2
+getSTRINGtoMAC             KEYWORD2
+getMACtoSTRING             KEYWORD2
+Set_Data_parameters        KEYWORD2
+
+# Predefined or Advanced Structures
+data                       KEYWORD3

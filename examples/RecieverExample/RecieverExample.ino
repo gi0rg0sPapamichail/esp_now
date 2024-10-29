@@ -1,4 +1,4 @@
-#include "esp_now_HR.h"
+#include "QuickESPNow.h"
 
 #define ID 3
 
@@ -14,7 +14,7 @@ uint8_t MACS[4][MAC_LENGTH] = {
 
 uint8_t senders_MAC[MAC_LENGTH] = {0xFF, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA};
 
-ESP_NOW_HR my_esp(RECEIVER, 1, MACS[ID]);
+QuickESPNow my_esp(RECEIVER, 1, MACS[ID]);
 
 void setup() {
   Serial.begin(115200);

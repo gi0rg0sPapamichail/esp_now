@@ -9,8 +9,8 @@ This library helps initialize the ESP-NOW protocol, utilizing all its important 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Examples](#examples)
-- [API Reference](#api-reference)
 - [Changelog](#Changelog)
+- [Warnings](#Warnings)
 - [License](#license)
 
 ## Installation
@@ -31,7 +31,7 @@ To install the ESP_NOW_HR library, follow these steps:
 5. Call the apropriate `addPeer()` method to give the information of the peer.
 
 ```cpp
-#include <esp_now_HR.h>
+#include <QuickESPNow.h>
 
 #define PEERS 3
 
@@ -43,7 +43,7 @@ uint8_t PEERS_MAC[PEERS][MAC_LENGTH] = {
     };
 
 // Initialize ESP_NOW_HR object
-ESP_NOW_HR myesp(SENDER, PEERS, MAC);
+QuickESPNow myesp(SENDER, PEERS, MAC);
 
 void setup() {
     Serial.begin(115200);
@@ -68,7 +68,7 @@ void loop() {
 
 ### SENDER EXAMPLE
 ```cpp
-#include "esp_now_HR.h"
+#include "QuickESPNow.h"
 
 
 uint8_t MACS[4][MAC_LENGTH] = {
@@ -80,12 +80,11 @@ uint8_t MACS[4][MAC_LENGTH] = {
 
 uint8_t Senders_MAC[MAC_LENGTH] = {0xCA, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA};
 
-ESP_NOW_HR my_esp(SENDER, 4, Senders_MAC);
+QuickESPNow my_esp(SENDER, 4, Senders_MAC);
 
 void setup() {
   Serial.begin(115200);
 
-  // delay(500);
   my_esp.begin();
   my_esp.addPeer(0, MACS[0], 0, WIFI_IF_STA);
   my_esp.addPeer(1, MACS[1], 0, WIFI_IF_STA);
@@ -117,7 +116,7 @@ void loop() {
 
 ### RECIEVER CODE
 ```cpp
-#include "esp_now_HR.h"
+#include "QuickESPNow.h"
 
 #define ID 3
 
@@ -133,14 +132,13 @@ uint8_t MACS[4][MAC_LENGTH] = {
 
 uint8_t senders_MAC[MAC_LENGTH] = {0xFF, 0xAA, 0xAA, 0xAA, 0xAA, 0xAA};
 
-ESP_NOW_HR my_esp(RECEIVER, 1, MACS[ID]);
+QuickESPNow my_esp(RECEIVER, 1, MACS[ID]);
 
 void setup() {
   Serial.begin(115200);
   pinMode(led, OUTPUT);
 
   my_esp.begin();
-  // delay(500);
   my_esp.addPeer(0, senders_MAC, 0, WIFI_IF_STA);
   my_esp.FAIL_CHECK();
   // my_esp.FAIL_CHECK();
@@ -160,102 +158,6 @@ void loop() {
 }
 ```
 
-## API Reference
-### Class: `ESP_NOW_HR`
-A class to manage ESP-NOW communication, providing functionalities for sending and receiving messages, managing peers, and handling encryption.
-
-
-### **Constructor**
-- **`ESP_NOW_HR(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC)`**
-    - **Parameters**:
-        - `communication`: Mode of communication (SENDER, RECEIVER, or TWO_WAY_COMMUNICATION).
-        - `peers_crowd`: Number of peers to manage.
-        - `new_local_MAC`: Pointer to the new local MAC address.
-    - **Description**: Initializes the ESP_NOW_HR instance with specified communication mode and peer configuration.
-
-- **`ESP_NOW_HR(const COMMUNICATION communication, const int peers_crowd, const uint8_t* new_local_MAC, const char* new_PMK_key)`**
-    - **Parameters**:
-        - `communication`: Mode of communication.
-        - `peers_crowd`: Number of peers.
-        - `new_local_MAC`: Pointer to the new local MAC address.
-        - `new_PMK_key`: Pointer to the new PMK encryption key.
-    - **Description**: Initializes the instance with encryption support.
-
----
-
-### **Methods**
-- **`void begin()`**
-    - **Description**: Initializes the ESP-NOW communication and sets the MAC address.
-
-- **`void addPeer(int id, uint8_t* Peers_MAC, int Ch, wifi_interface_t mode)`**
-    - **Parameters**:
-        - `id`: Unique identifier for the peer.
-        - `Peers_MAC`: Pointer to the MAC address of the peer.
-        - `Ch`: Channel to communicate on (0-13).
-        - `mode`: WiFi interface (WIFI_IF_STA or WIFI_IF_AP).
-    - **Description**: Adds a peer for communication.
-
-- **`void addPeer(int id, uint8_t* Peers_MAC, int Ch, wifi_interface_t mode, char* LMK_keys_array)`**
-    - **Parameters**:
-        - Same as the previous method, with an additional `LMK_keys_array` parameter for encryption.
-    - **Description**: Adds a peer with encryption.
-
-- **`void addPeer(int id, esp_now_peer_info_t* Peer)`**
-    - **Parameters**:
-        - `id`: Unique identifier for the peer.
-        - `Peer`: Pointer to the peer information structure.
-    - **Description**: Adds a peer using the provided peer info.
-
-- **`void Send(const int id, const data msg)`**
-    - **Parameters**:
-        - `id`: Identifier of the target peer.
-        - `msg`: Data to be sent.
-    - **Description**: Sends a message to a specified peer.
-
-- **`bool FAIL_CHECK()`**
-    - **Description**: Checks for initialization errors and prints error messages.
-
-- **`bool available() const`**
-    - **Description**: Checks if there are any received messages available.
-
-- **`bool isArray() const`**
-    - **Description**: Checks if the last received message is an array.
-
-- **`MSG_VARIABLE_TYPE data_type() const`**
-    - **Description**: Returns the type of the last received message.
-
-- **`void setChannel(int ch)`**
-    - **Parameters**:
-        - `ch`: Channel number to set (0-13).
-    - **Description**: Sets the WiFi channel for communication.
-
-- **`void setWiFi_to_STA()`**
-    - **Description**: Sets WiFi mode to station.
-
-- **`void setWiFi_to_AP()`**
-    - **Description**: Sets WiFi mode to access point.
-
-- **`void setWiFi_to_APSTA()`**
-    - **Description**: Sets WiFi mode to access point + station.
-
-- **`void setCustomSendCallback(esp_now_send_cb_t custom)`**
-    - **Parameters**:
-        - `custom`: Custom callback function for sending data.
-    - **Description**: Registers a custom send callback.
-
-- **`void setCustomRecvCallback(esp_now_recv_cb_t custom)`**
-    - **Parameters**:
-        - `custom`: Custom callback function for receiving data.
-    - **Description**: Registers a custom receive callback.
-
----
-
-### **Destructor**
-- **`~ESP_NOW_HR()`**
-    - **Description**: Cleans up resources and deinitializes ESP-NOW.
-
----
-
 
 ## Changelog
 
@@ -266,11 +168,19 @@ A class to manage ESP-NOW communication, providing functionalities for sending a
 - **User-defined Callbacks**: Added functionality for users to set their own custom data send and receive functions, increasing flexibility.
 - **Encryption Enhancements**: Fixed encryption problems and added support for both PMK and LMK keys to improve security.
 - **Support for AP and STA Modes**: Enhanced the class to support both Station (STA) and Access Point (AP) modes, which were previously limited to STA only.
-- **Channel Communication Fixes**: Correctly implemented message sending across different channels, not just channel 1.
+- **Channel Communication Fixes**: Correctly implemented message sending across different channels, not just channel. 1.
+- **Board Support**: Added esp32 `2.0.27` board version compatibility together with the `3.x.x` board versions.
+- **Sending Types**: Introduced costum struct message communication.
 
 ### Bug Fixes
 - Resolved issues with sending messages to peers on channels other than channel 1.
 - Fixed encryption issues to ensure proper data security.
+
+## Warnings
+
+This library can only work with theese board versions of the esp32 board manager in arduino:
+- `3.x.x`
+- `2.0.17`
 
 ## License
 
