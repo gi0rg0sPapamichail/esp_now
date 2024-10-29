@@ -41,21 +41,20 @@ void QuickESPNow::OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t stat
     Serial.print("\r\nLast Packet Send Status:\t");
     Serial.println(status == ESP_NOW_SEND_SUCCESS ? "Delivery Success" : "Delivery Fail");
 }
-#if defined(ARDUINO_ESP32_DEV) && ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
-void QuickESPNow::OnDataRecv(const esp_now_recv_info_t *info, const uint8_t *incomingData, int len){
-#elif defined(ARDUINO_ESP32_DEV) && ESP_ARDUINO_VERSION == ESP_ARDUINO_VERSION_VAL(2, 0, 17)
-void QuickESPNow::OnDataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int len){
-#endif
-    // Check if the received data length matches the size of the data struct
-    // Create a temporary data struct to hold the received data
-    msg_struct receivedData;
-    // Copy the received data into the temporary struct
-    memcpy(&receivedData, incomingData, sizeof(data));
 
-    // Update the static variable to store the latest received message data
+#if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
+void QuickESPNow::OnDataRecv(const esp_now_recv_info_t *info, const uint8_t *incomingData, int len) {
+    msg_struct receivedData;
+    memcpy(&receivedData, incomingData, sizeof(msg_struct));
     QuickESPNow::setRecvMsg(receivedData);
 }
-
+#elif ESP_ARDUINO_VERSION == ESP_ARDUINO_VERSION_VAL(2, 0, 17)
+void QuickESPNow::OnDataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int len) {
+    msg_struct receivedData;
+    memcpy(&receivedData, incomingData, sizeof(msg_struct));
+    QuickESPNow::setRecvMsg(receivedData);
+}
+#endif
 uint8_t QuickESPNow::Local_MAC[MAC_LENGTH];
 
 Msg_Queue QuickESPNow::recieved_msgs;
@@ -248,10 +247,10 @@ void QuickESPNow::begin(){
 /**********************************************************/
 
 void QuickESPNow::setChannel(int ch){
-    #if defined(ARDUINO_ESP32_DEV) && ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
+    #if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
     WiFi.setChannel(ch);
     delay(100);
-    #elif defined(ARDUINO_ESP32_DEV) && ESP_ARDUINO_VERSION == ESP_ARDUINO_VERSION_VAL(2, 0, 17)
+    #elif ESP_ARDUINO_VERSION == ESP_ARDUINO_VERSION_VAL(2, 0, 17)
     WiFi.channel(ch);
     delay(100);
     #endif
