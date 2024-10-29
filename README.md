@@ -20,7 +20,7 @@ To install the ESP_NOW_HR library, follow these steps:
 1. Download the latest release from the [releases page](https://github.com/gi0rg0sPapamichail/esp_now_HR_H).
 2. Open the Arduino IDE.
 3. Go to **Sketch** > **Include Library** > **Add .Zip library...**
-4. Search for "esp_now_HR_H-main" and click **Open**.
+4. Search for "QuickESPNow-main" and click **Open**.
 
 ## Usage
 
