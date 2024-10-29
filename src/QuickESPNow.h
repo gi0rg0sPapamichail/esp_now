@@ -51,22 +51,24 @@ class QuickESPNow {
      */
     static void OnDataSent(const uint8_t *mac_addr, esp_now_send_status_t status);
     
-    #if defined(ARDUINO_ESP32_DEV) && ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
-    /**
-     * @brief   Callback function for handling received messages.
-     * @param   info Information about the received message (e.g., RSSI, MAC address).
-     * @param   incomingData The raw data received.
-     * @param   len The length of the received data.
-     */
-    static void OnDataRecv(const esp_now_recv_info_t *info, const uint8_t *incomingData, int len);
-    #elif defined(ARDUINO_ESP32_DEV) && ESP_ARDUINO_VERSION == ESP_ARDUINO_VERSION_VAL(2, 0, 17)
-    /**
-     * @brief   Callback function for handling received messages.
-     * @param   info Information about the received message (e.g., RSSI, MAC address).
-     * @param   incomingData The raw data received.
-     * @param   len The length of the received data.
-     */
-    static void OnDataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int len);
+    #if ESP_ARDUINO_VERSION >= ESP_ARDUINO_VERSION_VAL(3, 0, 0)
+        /**
+         * @brief   Callback function for handling received messages.
+         * @param   info Information about the received message (e.g., RSSI, MAC address).
+         * @param   incomingData The raw data received.
+         * @param   len The length of the received data.
+         */
+        static void OnDataRecv(const esp_now_recv_info_t *info, const uint8_t *incomingData, int len);
+    #elif ESP_ARDUINO_VERSION == ESP_ARDUINO_VERSION_VAL(2, 0, 17)
+        /**
+         * @brief   Callback function for handling received messages.
+         * @param   mac_addr MAC address of the peer that sent the message.
+         * @param   incomingData The raw data received.
+         * @param   len The length of the received data.
+         */
+        static void OnDataRecv(const uint8_t *mac_addr, const uint8_t *incomingData, int len);
+    #else
+        #error unsapported board 
     #endif
 
     /************************************************************************/
